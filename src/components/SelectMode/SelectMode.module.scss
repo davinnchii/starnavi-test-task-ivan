@@ -1,0 +1,9 @@
+.selectMode {
+  display: flex;
+  gap: 16px;
+
+  &__select {
+    border: 2px solid #5f5858;
+    width: 200px;
+  }
+}
