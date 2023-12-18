@@ -1,0 +1,7 @@
+.table {
+  grid-column: 1 / 2;
+
+  &__row {
+    display: flex;
+  }
+}

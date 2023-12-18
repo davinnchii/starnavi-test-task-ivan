@@ -1,0 +1,20 @@
+.square {
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid #7c5e5e;
+  display: inline-block;
+
+  &__small {
+    width: 20px;
+    height: 20px;
+  }
+  &__large {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+.color__blue {
+  background-color: deepskyblue;
+}

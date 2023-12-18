@@ -1,24 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useEffect, useState } from 'react';
+import './App.scss';
+import { SelectMode } from './components/SelectMode/SelectMode';
+import { Table } from './components/Table/Table';
+import { MoveLog } from './components/MoveLog/MoveLog';
+import { ModeType } from './types/ModeType';
+import { request } from './utils/fetchClient';
 
 function App() {
+  const [availableMods, setAvailableMods] = useState<ModeType[] | null>(null);
+  const [currentMode, setCurrentMode] = useState<ModeType | null>(null);
+  const [moveHistory, setMoveHistory] = useState([] as string[]);
+
+
+  useEffect(() => {
+    request<ModeType[]>()
+      .then(setAvailableMods);
+  }, []);
+
+  useEffect(() => {
+    setMoveHistory([] as string[]);
+  }, [currentMode]);
+
+  const handleChangeMode = (modeName: string) => {
+    const newMode = availableMods?.find(({ name }) => name === modeName) || null;
+
+    setCurrentMode(newMode);
+  };
+
+  const handleAddMoveToLog = useCallback((position: string) => {
+    setMoveHistory(prevState => ([...prevState, position]));
+  }, [currentMode]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SelectMode onModeChange={handleChangeMode} availableMods={availableMods} />
+      {currentMode
+        ? (
+          <Table field={currentMode.field} onMove={handleAddMoveToLog} />
+        ) : (
+          <h3 style={{ gridColumn: '1 / 2' }}>Choose a game mode to begin!</h3>
+        )}
+      {moveHistory.length !== 0 && <MoveLog moves={moveHistory} />}
     </div>
   );
 }
