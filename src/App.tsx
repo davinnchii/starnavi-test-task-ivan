@@ -1,10 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import './App.scss';
 import { SelectMode } from './components/SelectMode/SelectMode';
 import { Table } from './components/Table/Table';
 import { MoveLog } from './components/MoveLog/MoveLog';
 import { ModeType } from './types/ModeType';
 import { request } from './utils/fetchClient';
+
+const MemoizedSquare = memo(Table);
 
 function App() {
   const [availableMods, setAvailableMods] = useState<ModeType[] | null>(null);
@@ -36,7 +38,7 @@ function App() {
       <SelectMode onModeChange={handleChangeMode} availableMods={availableMods} />
       {currentMode
         ? (
-          <Table field={currentMode.field} onMove={handleAddMoveToLog} />
+          <MemoizedSquare field={currentMode.field} onMove={handleAddMoveToLog} />
         ) : (
           <h3 style={{ gridColumn: '1 / 2' }}>Choose a game mode to begin!</h3>
         )}

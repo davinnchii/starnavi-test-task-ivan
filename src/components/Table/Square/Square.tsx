@@ -25,14 +25,10 @@ export const Square: React.FC<Props> = ({
       element.style.backgroundColor = element.style.backgroundColor === 'deepskyblue'
         ? 'white'
         : 'deepskyblue';
-    });
-    element?.addEventListener('mouseout', (event) => {
-      event.stopImmediatePropagation();
       onHover(row, column);
     });
     return () => {
       element?.removeEventListener('mouseenter', () => console.log('dismounted'));
-      element?.removeEventListener('mouseleave', () => console.log('leave'))
     };
   }, []);
 

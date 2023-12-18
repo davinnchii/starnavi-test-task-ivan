@@ -1,0 +1,12 @@
+.moveLog {
+  grid-column: 2 / 3;
+  grid-row: 1 / -1;
+
+  &__move {
+    background-color: lightgoldenrodyellow;
+    border: 1px solid lightgoldenrodyellow;
+    border-radius: 10px;
+    color: #764a23;
+    padding: 15px;
+  }
+}
