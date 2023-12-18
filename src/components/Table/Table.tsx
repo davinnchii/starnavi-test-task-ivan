@@ -9,7 +9,6 @@ type Props = {
   onMove: (position: string) => void,
 }
 
-
 export const Table: React.FC<Props> = ({ field, onMove }) => {
   const [squares, setSquares] = useState(generateTable(field));
 
