@@ -11,6 +11,7 @@ type Props = {
 }
 
 export const Square: React.FC<Props> = ({
+  isBlue,
   isLarge,
   row,
   column,
@@ -22,9 +23,6 @@ export const Square: React.FC<Props> = ({
 
     element?.addEventListener('mouseenter', (event) => {
       event.stopImmediatePropagation();
-      element.style.backgroundColor = element.style.backgroundColor === 'deepskyblue'
-        ? 'white'
-        : 'deepskyblue';
       onHover(row, column);
     });
     return () => {
@@ -37,6 +35,7 @@ export const Square: React.FC<Props> = ({
       ref={ref}
       className={classNames(styles.square,
         {
+          [styles.color__blue]: isBlue,
           [styles.square__large]: !isLarge,
           [styles.square__small]: isLarge,
         })}
